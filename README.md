@@ -14,12 +14,6 @@ Baridx Task is built with Flutter, following clean architecture principles to en
 - Custom widgets and animations for enhanced user experience
 - Poppins font family integration for modern typography
 
-### Theme Switching
-- Dynamic theme switching between light and dark modes
-- Persistent theme preference storage
-- Custom color schemes for both themes
-- Seamless transition animations between themes
-
 ### Secure Local Storage
 - Encrypted storage for sensitive data using flutter_secure_storage
 - Local preferences management with shared_preferences
