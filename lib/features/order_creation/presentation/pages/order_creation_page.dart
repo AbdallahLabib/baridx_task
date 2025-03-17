@@ -7,6 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/common_widgets/app_button.dart';
 import '../../../../core/services/dependency_injection/dependency_init.dart';
+import '../../../../core/services/dialog_service/dialog_service.dart';
+import '../../../../core/services/dialog_service/dialogs/app_dialog.dart';
+import '../../../../core/services/dialog_service/dialogs/dialog_model.dart';
 import '../cubit/order_creation_cubit.dart';
 import '../widgets/customer_info_step.dart';
 import '../widgets/package_details_step.dart';
@@ -21,7 +24,34 @@ class OrderCreationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<OrderCreationCubit>(),
-      child: const OrderCreationView(),
+      child: BlocListener<OrderCreationCubit, OrderCreationState>(
+        listenWhen: (previous, current) =>
+            previous.isOrderCreated != current.isOrderCreated || previous.errorMessage != current.errorMessage,
+        listener: (context, state) async {
+          if (state.isOrderCreated) {
+            await showDialog<void>(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => AppDialog(
+                dialogModel: DialogModel.confirm(
+                    title: 'Success',
+                    description: 'Your order has been submitted successfully!',
+                    primaryText: 'OK',
+                    onPrimaryTapped: () {
+                      context.read<OrderCreationCubit>().reset();
+                      Navigator.pop(context);
+                    }),
+              ),
+            );
+          }
+          if (state.errorMessage.isNotEmpty) {
+            getIt<DialogService>().showErrorMessage(
+              errorMessage: state.errorMessage,
+            );
+          }
+        },
+        child: const OrderCreationView(),
+      ),
     );
   }
 }

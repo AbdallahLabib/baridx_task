@@ -19,10 +19,10 @@ mixin _$OrderCreationState {
   int get currentStep => throw _privateConstructorUsedError;
   OrderCreationModel? get orderData => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
-  String? get errorMessage => throw _privateConstructorUsedError;
   bool get isOrderCreated => throw _privateConstructorUsedError;
   int get totalSteps => throw _privateConstructorUsedError;
   Map<int, bool> get completedSteps => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
 
   /// Create a copy of OrderCreationState
   /// with the given fields replaced by the non-null parameter values.
@@ -41,10 +41,10 @@ abstract class $OrderCreationStateCopyWith<$Res> {
       {int currentStep,
       OrderCreationModel? orderData,
       bool isLoading,
-      String? errorMessage,
       bool isOrderCreated,
       int totalSteps,
-      Map<int, bool> completedSteps});
+      Map<int, bool> completedSteps,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -65,10 +65,10 @@ class _$OrderCreationStateCopyWithImpl<$Res, $Val extends OrderCreationState>
     Object? currentStep = null,
     Object? orderData = freezed,
     Object? isLoading = null,
-    Object? errorMessage = freezed,
     Object? isOrderCreated = null,
     Object? totalSteps = null,
     Object? completedSteps = null,
+    Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
       currentStep: null == currentStep
@@ -83,10 +83,6 @@ class _$OrderCreationStateCopyWithImpl<$Res, $Val extends OrderCreationState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
       isOrderCreated: null == isOrderCreated
           ? _value.isOrderCreated
           : isOrderCreated // ignore: cast_nullable_to_non_nullable
@@ -99,6 +95,10 @@ class _$OrderCreationStateCopyWithImpl<$Res, $Val extends OrderCreationState>
           ? _value.completedSteps
           : completedSteps // ignore: cast_nullable_to_non_nullable
               as Map<int, bool>,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -115,10 +115,10 @@ abstract class _$$OrderCreationStateImplCopyWith<$Res>
       {int currentStep,
       OrderCreationModel? orderData,
       bool isLoading,
-      String? errorMessage,
       bool isOrderCreated,
       int totalSteps,
-      Map<int, bool> completedSteps});
+      Map<int, bool> completedSteps,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -137,10 +137,10 @@ class __$$OrderCreationStateImplCopyWithImpl<$Res>
     Object? currentStep = null,
     Object? orderData = freezed,
     Object? isLoading = null,
-    Object? errorMessage = freezed,
     Object? isOrderCreated = null,
     Object? totalSteps = null,
     Object? completedSteps = null,
+    Object? errorMessage = null,
   }) {
     return _then(_$OrderCreationStateImpl(
       currentStep: null == currentStep
@@ -155,10 +155,6 @@ class __$$OrderCreationStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
       isOrderCreated: null == isOrderCreated
           ? _value.isOrderCreated
           : isOrderCreated // ignore: cast_nullable_to_non_nullable
@@ -171,6 +167,10 @@ class __$$OrderCreationStateImplCopyWithImpl<$Res>
           ? _value._completedSteps
           : completedSteps // ignore: cast_nullable_to_non_nullable
               as Map<int, bool>,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -182,10 +182,10 @@ class _$OrderCreationStateImpl implements _OrderCreationState {
       {this.currentStep = 0,
       this.orderData,
       this.isLoading = false,
-      this.errorMessage,
       this.isOrderCreated = false,
       this.totalSteps = 4,
-      final Map<int, bool> completedSteps = const {}})
+      final Map<int, bool> completedSteps = const {},
+      this.errorMessage = ''})
       : _completedSteps = completedSteps;
 
   @override
@@ -196,8 +196,6 @@ class _$OrderCreationStateImpl implements _OrderCreationState {
   @override
   @JsonKey()
   final bool isLoading;
-  @override
-  final String? errorMessage;
   @override
   @JsonKey()
   final bool isOrderCreated;
@@ -214,8 +212,12 @@ class _$OrderCreationStateImpl implements _OrderCreationState {
   }
 
   @override
+  @JsonKey()
+  final String errorMessage;
+
+  @override
   String toString() {
-    return 'OrderCreationState(currentStep: $currentStep, orderData: $orderData, isLoading: $isLoading, errorMessage: $errorMessage, isOrderCreated: $isOrderCreated, totalSteps: $totalSteps, completedSteps: $completedSteps)';
+    return 'OrderCreationState(currentStep: $currentStep, orderData: $orderData, isLoading: $isLoading, isOrderCreated: $isOrderCreated, totalSteps: $totalSteps, completedSteps: $completedSteps, errorMessage: $errorMessage)';
   }
 
   @override
@@ -229,14 +231,14 @@ class _$OrderCreationStateImpl implements _OrderCreationState {
                 other.orderData == orderData) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
             (identical(other.isOrderCreated, isOrderCreated) ||
                 other.isOrderCreated == isOrderCreated) &&
             (identical(other.totalSteps, totalSteps) ||
                 other.totalSteps == totalSteps) &&
             const DeepCollectionEquality()
-                .equals(other._completedSteps, _completedSteps));
+                .equals(other._completedSteps, _completedSteps) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
@@ -245,10 +247,10 @@ class _$OrderCreationStateImpl implements _OrderCreationState {
       currentStep,
       orderData,
       isLoading,
-      errorMessage,
       isOrderCreated,
       totalSteps,
-      const DeepCollectionEquality().hash(_completedSteps));
+      const DeepCollectionEquality().hash(_completedSteps),
+      errorMessage);
 
   /// Create a copy of OrderCreationState
   /// with the given fields replaced by the non-null parameter values.
@@ -265,10 +267,10 @@ abstract class _OrderCreationState implements OrderCreationState {
       {final int currentStep,
       final OrderCreationModel? orderData,
       final bool isLoading,
-      final String? errorMessage,
       final bool isOrderCreated,
       final int totalSteps,
-      final Map<int, bool> completedSteps}) = _$OrderCreationStateImpl;
+      final Map<int, bool> completedSteps,
+      final String errorMessage}) = _$OrderCreationStateImpl;
 
   @override
   int get currentStep;
@@ -277,13 +279,13 @@ abstract class _OrderCreationState implements OrderCreationState {
   @override
   bool get isLoading;
   @override
-  String? get errorMessage;
-  @override
   bool get isOrderCreated;
   @override
   int get totalSteps;
   @override
   Map<int, bool> get completedSteps;
+  @override
+  String get errorMessage;
 
   /// Create a copy of OrderCreationState
   /// with the given fields replaced by the non-null parameter values.

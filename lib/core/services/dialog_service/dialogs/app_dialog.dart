@@ -20,14 +20,14 @@ class AppDialog extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
         child: SizedBox(
-          height: 550.h + MediaQuery.of(context).systemGestureInsets.bottom,
+          height: 300.h + MediaQuery.of(context).systemGestureInsets.bottom,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 50.h),
                 child: Container(
-                  height: 485.h,
+                  height: 200.h,
                   width: 330.w,
                   decoration: BoxDecoration(
                     color: const Color(0xffBB9651).withOpacity(0.32),

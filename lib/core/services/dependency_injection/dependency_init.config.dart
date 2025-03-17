@@ -79,15 +79,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i962.OrderCreationRepositoryImpl());
     gh.factory<_i115.SaveThemeUseCase>(() => _i115.SaveThemeUseCase(
         gh<_i296.LocalStorageService>(instanceName: 'AppLocalStorage')));
+    gh.factory<_i932.OrderCreationCubit>(
+        () => _i932.OrderCreationCubit(gh<_i962.OrderCreationRepository>()));
     gh.lazySingleton<_i1068.NavigationService>(() =>
         _i715.INavigationService(gh<_i718.GlobalKey<_i718.NavigatorState>>()));
     gh.lazySingleton<_i1009.DialogService>(
         () => _i792.DialogServiceImpl(gh<_i1068.NavigationService>()));
-    gh.factory<_i932.OrderCreationCubit>(() => _i932.OrderCreationCubit(
-          gh<_i1009.DialogService>(),
-          gh<_i962.OrderCreationRepository>(),
-          gh<_i1068.NavigationService>(),
-        ));
     gh.singleton<_i443.AppCubit>(
         () => _i443.AppCubit(gh<_i115.SaveThemeUseCase>()));
     return this;

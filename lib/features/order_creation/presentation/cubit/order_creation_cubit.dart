@@ -1,11 +1,8 @@
-import 'package:baridx_task/core/services/dialog_service/dialogs/dialog_model.dart';
 import 'package:baridx_task/features/order_creation/data/models/order_creation_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/services/dialog_service/dialog_service.dart';
-import '../../../../core/services/navigation_service/navigation_service.dart';
 import '../../data/repositories/order_creation_repository.dart';
 
 part 'order_creation_cubit.freezed.dart';
@@ -16,24 +13,24 @@ class OrderCreationState with _$OrderCreationState {
     @Default(0) int currentStep,
     OrderCreationModel? orderData,
     @Default(false) bool isLoading,
-    String? errorMessage,
     @Default(false) bool isOrderCreated,
     @Default(4) int totalSteps,
     @Default({}) Map<int, bool> completedSteps,
+    @Default('') String errorMessage,
   }) = _OrderCreationState;
 }
 
 @injectable
 class OrderCreationCubit extends Cubit<OrderCreationState> {
-  final DialogService _dialogService;
   final OrderCreationRepository _orderCreationRepository;
-  final NavigationService _navigationService;
 
   OrderCreationCubit(
-    this._dialogService,
     this._orderCreationRepository,
-    this._navigationService,
   ) : super(OrderCreationState(orderData: OrderCreationModel()));
+
+  void reset() {
+    emit(OrderCreationState(orderData: OrderCreationModel(), currentStep: 0, completedSteps: {}));
+  }
 
   void updateCustomerInfo({
     String? name,
@@ -286,11 +283,12 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
 
   Future<void> submitOrder() async {
     if (state.orderData == null) {
-      _dialogService.showErrorMessage(errorMessage: 'Invalid order data');
+      emit(state.copyWith(isLoading: false, errorMessage: 'Invalid order data'));
       return;
     }
 
     emit(state.copyWith(isLoading: true));
+
     try {
       // Simulate API call
       await Future.delayed(const Duration(seconds: 1));
@@ -298,15 +296,9 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
       final result = await _orderCreationRepository.createOrder(state.orderData!);
       if (result) {
         emit(state.copyWith(isOrderCreated: true, isLoading: false));
-        _dialogService.showAppDialog(DialogModel.confirm(primaryText: 'Order created successfully!'));
-        _navigationService.pop();
       }
     } catch (error) {
-      emit(state.copyWith(
-        isLoading: false,
-        errorMessage: error.toString(),
-      ));
-      _dialogService.showErrorMessage(errorMessage: error.toString());
+      emit(state.copyWith(isLoading: false, errorMessage: error.toString()));
     }
   }
 
