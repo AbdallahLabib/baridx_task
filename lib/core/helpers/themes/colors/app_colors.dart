@@ -12,18 +12,11 @@ abstract class AppColors {
   static final AppLightColors _light = AppLightColors();
 
   // These are colors that doesn't depend on theme
-  static const Color snackBarGreenSuccess = Color(0xff03A89E);
   static const Color snackBarRedError = Color(0xffBF1C00);
-  static const Color snackBarYellowAlert = Color(0xfffea632);
-  static const Color appDarkBlue = Color(0xff111929);
-  static const Color appDarkBlue2 = Color(0xff2A3255);
-  static const Color borderGolden = Color(0xffA67F38);
-
   static const Color primary10 = Color(0xffEBF6F9);
   static const Color primary50 = Color(0xffE8F0FE);
   static const Color primary500 = Color(0xFF448BA2);
   static const Color primary700 = Color(0xFF306272);
-  static const Color primary800 = Color(0xFF193A50);
   static const Color secondary800 = Color(0xFF73112F);
   static const Color borderColor = Color(0xFFCCCCCC);
 

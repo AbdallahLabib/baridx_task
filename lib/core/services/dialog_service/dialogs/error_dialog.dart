@@ -7,7 +7,6 @@ import '../../../extensions/context_extensions.dart';
 
 import '../../../common_widgets/app_button.dart';
 import '../../../common_widgets/app_text.dart';
-import '../../../helpers/themes/colors/app_colors_constants.dart';
 
 class ErrorDialog extends StatelessWidget {
   const ErrorDialog({required this.message, this.onTap, super.key});
@@ -42,7 +41,7 @@ class ErrorDialog extends StatelessWidget {
               child: AppText(
                 text: message,
                 textStyle: TextStyle(
-                  color: SECONDARY_LIGHT_TEXT_COLOR,
+                  color: const Color(0xffCBCEDD),
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),
@@ -60,8 +59,8 @@ class ErrorDialog extends StatelessWidget {
               padding: EdgeInsets.zero,
               text: 'OK',
               type: ButtonType.active,
-              buttonColor: PRIMARY_COLOR,
-              borderColor: PRIMARY_COLOR,
+              buttonColor: const Color(0xFF0C193D),
+              borderColor: const Color(0xFF0C193D),
               textStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w700, color: Colors.white),
             ),
           ],

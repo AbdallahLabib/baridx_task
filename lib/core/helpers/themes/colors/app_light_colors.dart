@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
-import 'app_colors_constants.dart';
 
 class AppLightColors extends AppColors {
   @override
-  Color get primaryColor => PRIMARY_COLOR;
+  Color get primaryColor => Colors.white;
 
   @override
-  Color get secondaryColor => SECONDARY_COLOR;
+  Color get secondaryColor => const Color(0xFF21A0FF);
 
   @override
-  Color get tertiaryColor => TERTIARY_COLOR;
+  Color get tertiaryColor => const Color(0xFFEEC222);
 
   @override
-  Color get quaternaryColor => QUATERNARY_COLOR;
+  Color get quaternaryColor => const Color(0xFF14234B);
 
   @override
   Color get primaryContainerColor => const Color(0xff1A1D36);
@@ -37,13 +36,13 @@ class AppLightColors extends AppColors {
   Color get selectedBorderColor => const Color(0xff1C274C).withOpacity(0.2);
 
   @override
-  Color get primaryTextColor => PRIMARY_TEXT_COLOR;
+  Color get primaryTextColor => Colors.white;
 
   @override
-  Color get secondaryTextColor => SECONDARY_TEXT_COLOR;
+  Color get secondaryTextColor => Colors.black;
   // scrim
   @override
-  Color get tertiaryTextColor => TERTIARY_TEXT_COLOR;
+  Color get tertiaryTextColor => const Color(0xff93A3B0);
 
   @override
   Color get hintTextColor => const Color(0xffA8A8A8);
@@ -52,11 +51,11 @@ class AppLightColors extends AppColors {
   Color get primaryIconColor => Colors.white;
 
   @override
-  Color get backgroundColor => PRIMARY_COLOR;
+  Color get backgroundColor => const Color(0xFF0C193D);
 
   @override
-  Color get scaffoldBackground => BACKGROUND_COLOR;
+  Color get scaffoldBackground => Colors.white;
 
   @override
-  Color get textFieldFillColor => BACKGROUND_COLOR;
+  Color get textFieldFillColor => Colors.white;
 }

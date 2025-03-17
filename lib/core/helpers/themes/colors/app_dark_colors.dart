@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
-import 'app_colors_constants.dart';
 
 class AppDarkColors extends AppColors {
   @override
-  Color get primaryColor => PRIMARY_COLOR;
+  Color get primaryColor => Colors.black;
 
   @override
-  Color get secondaryColor => SECONDARY_DARK_COLOR;
+  Color get secondaryColor => Colors.white;
 
   @override
-  Color get tertiaryColor => TERTIARY_DARK_COLOR;
+  Color get tertiaryColor => const Color(0xffDE9F00);
 
   @override
   Color get primaryContainerColor => Colors.grey[800]!;

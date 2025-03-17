@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../extensions/context_extensions.dart';
-import '../helpers/themes/colors/app_colors_constants.dart';
 import '/core/common_widgets/app_size_boxes.dart';
 import 'app_svg_image.dart';
 import 'app_text.dart';
@@ -155,9 +154,9 @@ extension ButtonTypeExtension on ButtonType {
   Color getFilledColor(BuildContext context) {
     switch (this) {
       case ButtonType.active:
-        return TERTIARY_DARK_COLOR; //context.theme.primaryColor;
+        return const Color(0xffDE9F00); //context.theme.primaryColor;
       case ButtonType.secondary:
-        return TERTIARY_DARK_COLOR; //Colors.transparent;
+        return const Color(0xffDE9F00); //Colors.transparent;
       case ButtonType.tertiary:
         return context.theme.hoverColor;
       case ButtonType.text:
@@ -185,7 +184,7 @@ extension ButtonTypeExtension on ButtonType {
   Color? getTextColor(BuildContext context) {
     switch (this) {
       case ButtonType.active:
-        return SECONDARY_TEXT_COLOR;
+        return context.colors.secondaryColor;
       case ButtonType.secondary:
         return context.theme.primaryColor;
       case ButtonType.tertiary:
