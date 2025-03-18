@@ -37,6 +37,7 @@ class OrderCreationPage extends StatelessWidget {
                     title: 'Success',
                     description: 'Your order has been submitted successfully!',
                     primaryText: 'OK',
+                    primaryButtonColor: Colors.green,
                     onPrimaryTapped: () {
                       context.read<OrderCreationCubit>().reset();
                       Navigator.pop(context);
