@@ -234,7 +234,7 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
 
   // Handles navigation to next step and validates current step
   // Also handles the final review step
-  void nextStep() async {
+  Future<void> nextStep() async {
     if (!isCurrentStepValid()) return;
 
     emit(state.copyWith(isLoading: true));

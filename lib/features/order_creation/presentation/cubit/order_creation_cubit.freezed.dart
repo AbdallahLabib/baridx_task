@@ -16,12 +16,18 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$OrderCreationState {
-  int get currentStep => throw _privateConstructorUsedError;
-  OrderCreationModel? get orderData => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
-  bool get isOrderCreated => throw _privateConstructorUsedError;
-  int get totalSteps => throw _privateConstructorUsedError;
-  Map<int, bool> get completedSteps => throw _privateConstructorUsedError;
+  int get currentStep =>
+      throw _privateConstructorUsedError; // Current active step in the order creation process
+  OrderCreationModel? get orderData =>
+      throw _privateConstructorUsedError; // Contains all the order details
+  bool get isLoading =>
+      throw _privateConstructorUsedError; // Loading state for async operations
+  bool get isOrderCreated =>
+      throw _privateConstructorUsedError; // Indicates if order was successfully created
+  int get totalSteps =>
+      throw _privateConstructorUsedError; // Total number of steps in the order process
+  Map<int, bool> get completedSteps =>
+      throw _privateConstructorUsedError; // Tracks which steps are completed
   String get errorMessage => throw _privateConstructorUsedError;
 
   /// Create a copy of OrderCreationState
@@ -191,18 +197,24 @@ class _$OrderCreationStateImpl implements _OrderCreationState {
   @override
   @JsonKey()
   final int currentStep;
+// Current active step in the order creation process
   @override
   final OrderCreationModel? orderData;
+// Contains all the order details
   @override
   @JsonKey()
   final bool isLoading;
+// Loading state for async operations
   @override
   @JsonKey()
   final bool isOrderCreated;
+// Indicates if order was successfully created
   @override
   @JsonKey()
   final int totalSteps;
+// Total number of steps in the order process
   final Map<int, bool> _completedSteps;
+// Total number of steps in the order process
   @override
   @JsonKey()
   Map<int, bool> get completedSteps {
@@ -211,6 +223,7 @@ class _$OrderCreationStateImpl implements _OrderCreationState {
     return EqualUnmodifiableMapView(_completedSteps);
   }
 
+// Tracks which steps are completed
   @override
   @JsonKey()
   final String errorMessage;
@@ -273,17 +286,17 @@ abstract class _OrderCreationState implements OrderCreationState {
       final String errorMessage}) = _$OrderCreationStateImpl;
 
   @override
-  int get currentStep;
+  int get currentStep; // Current active step in the order creation process
   @override
-  OrderCreationModel? get orderData;
+  OrderCreationModel? get orderData; // Contains all the order details
   @override
-  bool get isLoading;
+  bool get isLoading; // Loading state for async operations
   @override
-  bool get isOrderCreated;
+  bool get isOrderCreated; // Indicates if order was successfully created
   @override
-  int get totalSteps;
+  int get totalSteps; // Total number of steps in the order process
   @override
-  Map<int, bool> get completedSteps;
+  Map<int, bool> get completedSteps; // Tracks which steps are completed
   @override
   String get errorMessage;
 
