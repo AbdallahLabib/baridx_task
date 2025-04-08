@@ -297,9 +297,6 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     emit(state.copyWith(isLoading: true));
 
     try {
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 1));
-
       final result = await _orderCreationRepository.createOrder(state.orderData!);
       if (result) {
         emit(state.copyWith(isOrderCreated: true, isLoading: false));
