@@ -7,6 +7,8 @@ import '../../../../core/common_widgets/custom_text_fields/phone_number_text_fie
 import '../../../../core/common_widgets/custom_text_fields/string_text_field.dart';
 import '../cubit/order_creation_cubit.dart';
 
+// First step of the order creation process
+// Collects customer's basic information including name, phone number, and address
 class CustomerInfoStep extends StatefulWidget {
   const CustomerInfoStep({super.key});
 
@@ -28,6 +30,7 @@ class _CustomerInfoStepState extends State<CustomerInfoStep> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Step title with animation
               Text(
                 'Customer Information',
                 style: TextStyle(
@@ -37,18 +40,21 @@ class _CustomerInfoStepState extends State<CustomerInfoStep> {
                 ),
               ).animate().fadeIn(delay: 100.ms, duration: 200.ms).slideX(duration: 200.ms),
               SizedBox(height: 20.h),
+              // Customer name input field
               StringTextField(
                 hintText: 'Name',
                 initialValue: state.orderData?.name,
                 onChanged: (value) => cubit.updateCustomerInfo(name: value),
               ).animate().fadeIn(delay: 200.ms, duration: 200.ms).slideX(duration: 200.ms),
               SizedBox(height: 16.h),
+              // Phone number input with formatting
               PhoneNumberTextField(
                 hintText: 'Phone Number',
                 initialValue: state.orderData?.phoneNumber,
                 onChanged: (value) => cubit.updateCustomerInfo(phoneNumber: value),
               ).animate().fadeIn(delay: 300.ms, duration: 200.ms).slideX(duration: 200.ms),
               SizedBox(height: 16.h),
+              // Delivery address input
               StringTextField(
                 hintText: 'Address',
                 initialValue: state.orderData?.address,

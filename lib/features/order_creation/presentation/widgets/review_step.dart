@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/order_creation_cubit.dart';
 
+// Final step of the order creation process
+// Displays a comprehensive summary of all entered information
 class ReviewStep extends StatefulWidget {
   const ReviewStep({super.key});
 
@@ -14,12 +16,14 @@ class ReviewStep extends StatefulWidget {
 }
 
 class _ReviewStepState extends State<ReviewStep> {
+  // Tracks the expanded/collapsed state of each section
   final Map<String, bool> _expandedSections = {
     'Customer Information': true,
     'Package Details': true,
     'Payment Information': true,
   };
 
+  // Toggles the expanded/collapsed state of a section
   void _toggleSection(String title) {
     setState(() {
       _expandedSections[title] = !(_expandedSections[title] ?? false);
@@ -38,6 +42,7 @@ class _ReviewStepState extends State<ReviewStep> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Order summary title
               Text(
                 'Order Summary',
                 style: TextStyle(
@@ -47,6 +52,7 @@ class _ReviewStepState extends State<ReviewStep> {
                 ),
               ),
               20.heightBox,
+              // Customer information section
               _buildSection(
                 'Customer Information',
                 [
@@ -57,6 +63,7 @@ class _ReviewStepState extends State<ReviewStep> {
                 Icons.person_outline,
               ),
               16.heightBox,
+              // Package details section
               _buildSection(
                 'Package Details',
                 [
@@ -67,6 +74,7 @@ class _ReviewStepState extends State<ReviewStep> {
                 Icons.local_shipping_outlined,
               ),
               16.heightBox,
+              // Payment information section
               _buildSection(
                 'Payment Information',
                 [

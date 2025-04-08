@@ -8,6 +8,8 @@ import '../../../../core/common_widgets/custom_text_fields/number_text_field.dar
 import '../../../../core/common_widgets/custom_text_fields/string_text_field.dart';
 import '../cubit/order_creation_cubit.dart';
 
+// Second step of the order creation process
+// Collects package information including type, weight, and delivery notes
 class PackageDetailsStep extends StatelessWidget {
   const PackageDetailsStep({super.key});
 
@@ -24,6 +26,7 @@ class PackageDetailsStep extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // Step title with animation
                 Text(
                   'Package Details',
                   style: TextStyle(
@@ -33,6 +36,7 @@ class PackageDetailsStep extends StatelessWidget {
                   ),
                 ).animate().fadeIn(delay: 100.ms, duration: 200.ms).slideX(duration: 200.ms),
                 SizedBox(height: 20.h),
+                // Package type selection dropdown
                 CustomDropdown<String>(
                   placeholder: 'Package Type',
                   items: const ['Standard', 'Express', 'Premium'],
@@ -42,6 +46,7 @@ class PackageDetailsStep extends StatelessWidget {
                   itemLabel: (item) => item,
                 ).animate().fadeIn(delay: 200.ms, duration: 200.ms).slideX(duration: 200.ms),
                 SizedBox(height: 16.h),
+                // Package weight input with validation
                 NumberTextField(
                   hintText: 'Weight (kg)',
                   initialValue: state.orderData?.weight?.toString(),
@@ -51,6 +56,7 @@ class PackageDetailsStep extends StatelessWidget {
                   validator: (value) => value?.isEmpty ?? true ? 'Please enter package weight' : null,
                 ).animate().fadeIn(delay: 300.ms, duration: 200.ms).slideX(duration: 200.ms),
                 SizedBox(height: 16.h),
+                // Optional delivery notes input
                 StringTextField(
                   hintText: 'Delivery Notes (Optional)',
                   initialValue: state.orderData?.deliveryNotes,

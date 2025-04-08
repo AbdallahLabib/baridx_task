@@ -17,6 +17,8 @@ import '../widgets/payment_step.dart';
 import '../widgets/review_step.dart';
 import '../widgets/step_header.dart';
 
+// Main page for the order creation process
+// Manages the multi-step form flow and handles order submission
 class OrderCreationPage extends StatelessWidget {
   const OrderCreationPage({super.key});
 
@@ -28,6 +30,7 @@ class OrderCreationPage extends StatelessWidget {
         listenWhen: (previous, current) =>
             previous.isOrderCreated != current.isOrderCreated || previous.errorMessage != current.errorMessage,
         listener: (context, state) async {
+          // Handle order creation success and error states
           if (state.isOrderCreated) {
             await showDialog<void>(
               context: context,
@@ -57,6 +60,8 @@ class OrderCreationPage extends StatelessWidget {
   }
 }
 
+// Main view component for the order creation process
+// Contains the step indicator, current step content, and navigation buttons
 class OrderCreationView extends StatelessWidget {
   const OrderCreationView({super.key});
 
@@ -72,6 +77,7 @@ class OrderCreationView extends StatelessWidget {
           body: Column(
             children: [
               _buildStepHeader(context, state, cubit),
+              // Animated circular step indicator showing progress
               CircularStepIndicator(
                 currentStep: state.currentStep + 1,
                 totalSteps: state.totalSteps,
@@ -92,12 +98,14 @@ class OrderCreationView extends StatelessWidget {
                   Icons.description_outlined,
                 ],
               ).animate().fadeIn(duration: 600.ms),
+              // Current step content area
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(16.sp),
                   child: _buildCurrentStep(context, state),
                 ),
               ),
+              // Navigation buttons (Back and Next/Submit)
               Padding(
                 padding: EdgeInsets.all(16.sp),
                 child: Row(
@@ -132,6 +140,8 @@ class OrderCreationView extends StatelessWidget {
     );
   }
 
+  // Builds the header section for the current step
+  // Shows step title and icon with back navigation
   Widget _buildStepHeader(BuildContext context, OrderCreationState state, OrderCreationCubit cubit) {
     String title;
     IconData icon;
@@ -167,6 +177,7 @@ class OrderCreationView extends StatelessWidget {
     );
   }
 
+  // Returns the appropriate step widget based on current step index
   Widget _buildCurrentStep(BuildContext context, OrderCreationState state) {
     switch (state.currentStep) {
       case 0:

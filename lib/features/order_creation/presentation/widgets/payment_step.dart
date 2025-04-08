@@ -9,6 +9,8 @@ import '../../../../core/common_widgets/custom_dropdown.dart';
 import '../cubit/order_creation_cubit.dart';
 import 'credit_card_form.dart';
 
+// Third step of the order creation process
+// Handles payment method selection and related form fields
 class PaymentStep extends StatelessWidget {
   const PaymentStep({super.key});
 
@@ -25,6 +27,7 @@ class PaymentStep extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // Step title with animation
                 Text(
                   'Payment Method',
                   style: TextStyle(
@@ -34,6 +37,7 @@ class PaymentStep extends StatelessWidget {
                   ),
                 ).animate().fadeIn(delay: 100.ms, duration: 200.ms).slideX(duration: 200.ms),
                 SizedBox(height: 20.h),
+                // Payment method selection dropdown
                 CustomDropdown<PaymentMethod>(
                   placeholder: 'Select Payment Method',
                   items: PaymentMethod.values.toList(),
@@ -43,6 +47,7 @@ class PaymentStep extends StatelessWidget {
                   itemLabel: (item) => item.name,
                 ).animate().fadeIn(delay: 200.ms, duration: 200.ms).slideX(duration: 200.ms),
                 SizedBox(height: 16.h),
+                // Conditional form based on payment method
                 if (state.orderData?.paymentMethod == PaymentMethod.creditCard)
                   const CreditCardFormWidget()
                       .animate()
