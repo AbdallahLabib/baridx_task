@@ -1,3 +1,4 @@
+import 'package:baridx_task/features/order_creation/data/models/payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,26 +34,26 @@ class PaymentStep extends StatelessWidget {
                   ),
                 ).animate().fadeIn(delay: 100.ms, duration: 200.ms).slideX(duration: 200.ms),
                 SizedBox(height: 20.h),
-                CustomDropdown<String>(
+                CustomDropdown<PaymentMethod>(
                   placeholder: 'Select Payment Method',
-                  items: const ['Credit Card', 'Cash on Delivery', 'Pay Later'],
+                  items: PaymentMethod.values.toList(),
                   isMultiSelect: false,
                   selectedItem: state.orderData?.paymentMethod,
                   onItemSelected: (value) => cubit.updatePaymentDetails(paymentMethod: value),
-                  itemLabel: (item) => item,
+                  itemLabel: (item) => item.name,
                 ).animate().fadeIn(delay: 200.ms, duration: 200.ms).slideX(duration: 200.ms),
                 SizedBox(height: 16.h),
-                if (state.orderData?.paymentMethod == 'Credit Card')
+                if (state.orderData?.paymentMethod == PaymentMethod.creditCard)
                   const CreditCardFormWidget()
                       .animate()
                       .fadeIn(delay: 300.ms, duration: 200.ms)
                       .slideX(duration: 200.ms),
-                if (state.orderData?.paymentMethod == 'Pay Later')
+                if (state.orderData?.paymentMethod == PaymentMethod.payLater)
                   PhoneNumberTextField(
                     hintText: 'Phone Number for Pay Later',
                     initialValue: state.orderData?.payLaterPhoneNumber,
                     onChanged: (value) => cubit.updatePaymentDetails(
-                      paymentMethod: 'Pay Later', // Keep the payment method
+                      paymentMethod: PaymentMethod.payLater,
                       payLaterPhoneNumber: value,
                     ),
                     validator: (value) => value?.isEmpty ?? true ? 'Please enter phone number' : null,

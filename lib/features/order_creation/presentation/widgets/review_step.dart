@@ -70,7 +70,7 @@ class _ReviewStepState extends State<ReviewStep> {
               _buildSection(
                 'Payment Information',
                 [
-                  _buildInfoRow('Method', order.paymentMethod ?? ''),
+                  _buildInfoRow('Method', order.paymentMethod?.name ?? ''),
                   if (order.paymentMethod == 'Credit Card') ...[
                     _buildInfoRow(
                         'Card Number', '•••• ${order.cardNumber?.substring(order.cardNumber!.length - 4) ?? ''}'),

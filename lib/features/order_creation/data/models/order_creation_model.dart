@@ -1,3 +1,5 @@
+import 'payment_method.dart';
+
 class OrderCreationModel {
   final String? name;
   final String? phoneNumber;
@@ -5,7 +7,7 @@ class OrderCreationModel {
   final String? packageType;
   final double? weight;
   final String? deliveryNotes;
-  final String? paymentMethod;
+  final PaymentMethod? paymentMethod;
   final String? cardNumber;
   final String? cardHolderName;
   final String? expiryDate;
@@ -34,8 +36,11 @@ class OrderCreationModel {
     String? packageType,
     double? weight,
     String? deliveryNotes,
-    String? paymentMethod,
+    PaymentMethod? paymentMethod,
     String? cardNumber,
+    String? cardHolderName,
+    String? expiryDate,
+    String? cvvCode,
     String? payLaterPhoneNumber,
   }) {
     return OrderCreationModel(
@@ -47,6 +52,9 @@ class OrderCreationModel {
       deliveryNotes: deliveryNotes ?? this.deliveryNotes,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       cardNumber: cardNumber ?? this.cardNumber,
+      cardHolderName: cardHolderName ?? this.cardHolderName,
+      expiryDate: expiryDate ?? this.expiryDate,
+      cvvCode: cvvCode ?? this.cvvCode,
       payLaterPhoneNumber: payLaterPhoneNumber ?? this.payLaterPhoneNumber,
     );
   }
@@ -59,8 +67,11 @@ class OrderCreationModel {
       'packageType': packageType,
       'weight': weight,
       'deliveryNotes': deliveryNotes,
-      'paymentMethod': paymentMethod,
+      'paymentMethod': paymentMethod?.toJson(),
       'cardNumber': cardNumber,
+      'cardHolderName': cardHolderName,
+      'expiryDate': expiryDate,
+      'cvvCode': cvvCode,
       'payLaterPhoneNumber': payLaterPhoneNumber,
     };
   }
@@ -73,8 +84,11 @@ class OrderCreationModel {
       packageType: json['packageType'] as String?,
       weight: json['weight'] as double?,
       deliveryNotes: json['deliveryNotes'] as String?,
-      paymentMethod: json['paymentMethod'] as String?,
+      paymentMethod: PaymentMethod.fromJson(json['paymentMethod'] as String?),
       cardNumber: json['cardNumber'] as String?,
+      cardHolderName: json['cardHolderName'] as String?,
+      expiryDate: json['expiryDate'] as String?,
+      cvvCode: json['cvvCode'] as String?,
       payLaterPhoneNumber: json['payLaterPhoneNumber'] as String?,
     );
   }

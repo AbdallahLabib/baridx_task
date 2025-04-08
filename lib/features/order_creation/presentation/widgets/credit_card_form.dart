@@ -1,3 +1,4 @@
+import 'package:baridx_task/features/order_creation/data/models/payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,7 @@ class _CreditCardFormWidgetState extends State<CreditCardFormWidget> {
                 cvvCode: orderData?.cvvCode ?? '',
                 onCreditCardModelChange: (creditCardModel) {
                   cubit.updatePaymentDetails(
-                    paymentMethod: 'Credit Card',
+                    paymentMethod: PaymentMethod.creditCard,
                     cardNumber: creditCardModel.cardNumber,
                     expiryDate: creditCardModel.expiryDate,
                     cardHolderName: creditCardModel.cardHolderName,

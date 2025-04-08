@@ -1,4 +1,5 @@
 import 'package:baridx_task/features/order_creation/data/models/order_creation_model.dart';
+import 'package:baridx_task/features/order_creation/data/models/payment_method.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -39,16 +40,10 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
   }) {
     if (state.orderData == null) return;
 
-    final updatedOrder = OrderCreationModel(
-      name: name ?? state.orderData?.name,
-      phoneNumber: phoneNumber ?? state.orderData?.phoneNumber,
-      address: address ?? state.orderData?.address,
-      packageType: state.orderData?.packageType,
-      weight: state.orderData?.weight,
-      deliveryNotes: state.orderData?.deliveryNotes,
-      paymentMethod: state.orderData?.paymentMethod,
-      cardNumber: state.orderData?.cardNumber,
-      payLaterPhoneNumber: state.orderData?.payLaterPhoneNumber,
+    final updatedOrder = state.orderData!.copyWith(
+      name: name,
+      phoneNumber: phoneNumber,
+      address: address,
     );
 
     // First emit the updated order
@@ -68,16 +63,10 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
   }) {
     if (state.orderData == null) return;
 
-    final updatedOrder = OrderCreationModel(
-      name: state.orderData?.name,
-      phoneNumber: state.orderData?.phoneNumber,
-      address: state.orderData?.address,
-      packageType: packageType ?? state.orderData?.packageType,
-      weight: weight ?? state.orderData?.weight,
-      deliveryNotes: deliveryNotes ?? state.orderData?.deliveryNotes,
-      paymentMethod: state.orderData?.paymentMethod,
-      cardNumber: state.orderData?.cardNumber,
-      payLaterPhoneNumber: state.orderData?.payLaterPhoneNumber,
+    final updatedOrder = state.orderData!.copyWith(
+      packageType: packageType,
+      weight: weight,
+      deliveryNotes: deliveryNotes,
     );
 
     // First emit the updated order
@@ -91,7 +80,7 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
   }
 
   void updatePaymentDetails({
-    String? paymentMethod,
+    PaymentMethod? paymentMethod,
     String? cardNumber,
     String? payLaterPhoneNumber,
     String? expiryDate,
@@ -100,19 +89,13 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
   }) {
     if (state.orderData == null) return;
 
-    final updatedOrder = OrderCreationModel(
-      name: state.orderData?.name,
-      phoneNumber: state.orderData?.phoneNumber,
-      address: state.orderData?.address,
-      packageType: state.orderData?.packageType,
-      weight: state.orderData?.weight,
-      deliveryNotes: state.orderData?.deliveryNotes,
+    final updatedOrder = state.orderData!.copyWith(
       paymentMethod: paymentMethod,
-      cardNumber: paymentMethod == 'Credit Card' ? cardNumber : null,
-      cardHolderName: paymentMethod == 'Credit Card' ? cardHolderName : null,
-      expiryDate: paymentMethod == 'Credit Card' ? expiryDate : null,
-      cvvCode: paymentMethod == 'Credit Card' ? cvvCode : null,
-      payLaterPhoneNumber: paymentMethod == 'Pay Later' ? payLaterPhoneNumber : null,
+      cardNumber: paymentMethod == PaymentMethod.creditCard ? cardNumber : null,
+      cardHolderName: paymentMethod == PaymentMethod.creditCard ? cardHolderName : null,
+      expiryDate: paymentMethod == PaymentMethod.creditCard ? expiryDate : null,
+      cvvCode: paymentMethod == PaymentMethod.creditCard ? cvvCode : null,
+      payLaterPhoneNumber: paymentMethod == PaymentMethod.payLater ? payLaterPhoneNumber : null,
     );
 
     // First emit the updated order
@@ -168,18 +151,18 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     if (orderData == null) return false;
 
     final paymentMethod = orderData.paymentMethod;
-    if (paymentMethod == null || paymentMethod.trim().isEmpty) {
+    if (paymentMethod == null) {
       return false;
     }
 
-    if (paymentMethod == 'Pay Later') {
+    if (paymentMethod == PaymentMethod.payLater) {
       final payLaterPhone = orderData.payLaterPhoneNumber;
       if (payLaterPhone == null || payLaterPhone.trim().length < 11) {
         return false;
       }
     }
 
-    if (paymentMethod == 'Credit Card') {
+    if (paymentMethod == PaymentMethod.creditCard) {
       if (orderData.cardNumber == null ||
           orderData.cardNumber!.trim().isEmpty ||
           orderData.cardHolderName == null ||
@@ -192,7 +175,7 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
       }
     }
 
-    if (paymentMethod == 'Pay Later') {
+    if (paymentMethod == PaymentMethod.payLater) {
       final payLaterPhone = orderData.payLaterPhoneNumber;
       if (payLaterPhone == null || payLaterPhone.trim().isEmpty) {
         return false;
