@@ -8,19 +8,23 @@ import '../../data/repositories/order_creation_repository.dart';
 
 part 'order_creation_cubit.freezed.dart';
 
+// State class for managing order creation process
+// Handles the multi-step form data and validation states
 @freezed
 class OrderCreationState with _$OrderCreationState {
   factory OrderCreationState({
-    @Default(0) int currentStep,
-    OrderCreationModel? orderData,
-    @Default(false) bool isLoading,
-    @Default(false) bool isOrderCreated,
-    @Default(4) int totalSteps,
-    @Default({}) Map<int, bool> completedSteps,
-    @Default('') String errorMessage,
+    @Default(0) int currentStep, // Current active step in the order creation process
+    OrderCreationModel? orderData, // Contains all the order details
+    @Default(false) bool isLoading, // Loading state for async operations
+    @Default(false) bool isOrderCreated, // Indicates if order was successfully created
+    @Default(4) int totalSteps, // Total number of steps in the order process
+    @Default({}) Map<int, bool> completedSteps, // Tracks which steps are completed
+    @Default('') String errorMessage, // Stores error messages if any
   }) = _OrderCreationState;
 }
 
+// Manages the business logic for the order creation process
+// Handles form validation, step navigation, and order submission
 @injectable
 class OrderCreationCubit extends Cubit<OrderCreationState> {
   final OrderCreationRepository _orderCreationRepository;
@@ -29,10 +33,13 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     this._orderCreationRepository,
   ) : super(OrderCreationState(orderData: OrderCreationModel()));
 
+  // Resets the order creation process to initial state
   void reset() {
     emit(OrderCreationState(orderData: OrderCreationModel(), currentStep: 0, completedSteps: {}));
   }
 
+  // Updates customer information and validates the input
+  // Handles name, phone number, and address validation
   void updateCustomerInfo({
     String? name,
     String? phoneNumber,
@@ -56,6 +63,8 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     emit(state.copyWith(completedSteps: newCompletedSteps));
   }
 
+  // Updates package details and validates the input
+  // Handles package type, weight, and delivery notes
   void updatePackageDetails({
     String? packageType,
     double? weight,
@@ -79,6 +88,8 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     emit(state.copyWith(completedSteps: newCompletedSteps));
   }
 
+  // Updates payment details and validates the input based on payment method
+  // Handles both credit card and pay later payment methods
   void updatePaymentDetails({
     PaymentMethod? paymentMethod,
     String? cardNumber,
@@ -108,12 +119,15 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     emit(state.copyWith(completedSteps: newCompletedSteps));
   }
 
+  // Navigates to the previous step in the order creation process
   void previousStep() {
     if (state.currentStep > 0) {
       emit(state.copyWith(currentStep: state.currentStep - 1));
     }
   }
 
+  // Validates customer information (Step 1)
+  // Checks if name, phone number, and address are properly filled
   bool validateCustomerInfo() {
     final orderData = state.orderData;
     if (orderData == null) return false;
@@ -133,6 +147,8 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     return true;
   }
 
+  // Validates package details (Step 2)
+  // Ensures package type is selected and weight is valid
   bool validatePackageDetails() {
     final orderData = state.orderData;
     if (orderData == null) return false;
@@ -146,6 +162,8 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     return true;
   }
 
+  // Validates payment details (Step 3)
+  // Validates based on selected payment method (credit card or pay later)
   bool validatePaymentDetails() {
     final orderData = state.orderData;
     if (orderData == null) return false;
@@ -185,8 +203,10 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     return true;
   }
 
+  // Checks if current step is the review step
   bool get isReviewStep => state.currentStep >= state.totalSteps;
 
+  // Validates the current step based on step index
   bool isCurrentStepValid() {
     switch (state.currentStep) {
       case 0:
@@ -202,6 +222,8 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     }
   }
 
+  // Returns list of completed steps
+  // Used to show step completion status in UI
   List<bool> get completedSteps {
     final steps = List.generate(state.totalSteps, (index) => state.completedSteps[index] ?? false);
     if (state.currentStep < state.totalSteps && isCurrentStepValid()) {
@@ -210,6 +232,8 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     return steps;
   }
 
+  // Handles navigation to next step and validates current step
+  // Also handles the final review step
   void nextStep() async {
     if (!isCurrentStepValid()) return;
 
@@ -285,6 +309,8 @@ class OrderCreationCubit extends Cubit<OrderCreationState> {
     }
   }
 
+  // Checks if order can be submitted
+  // Validates all steps are completed
   bool get canSubmitOrder {
     return state.currentStep == state.totalSteps - 1 &&
         validateCustomerInfo() &&
